@@ -15,6 +15,11 @@ const TodoList = () => {
     const changeHandler = (e) => {
         setNewTodo(e.target.value)
     }
+    const switchToComplete = (e) => {
+        console.log(e.target.innerHTML)
+        setTodos(todos.filter(nonCompleted => nonCompleted != e.target.innerHTML))
+        setCompleted([...completed, e.target.innerHTML])
+    }
 
     return (
         <>
@@ -24,7 +29,7 @@ const TodoList = () => {
             </form>
             <h3>This is a Todo List</h3>
             <h4>Todo</h4>
-            {todos.map((todo, index) => { return <Todo name={todo} key={index} /> })}
+            {todos.map((todo, index) => { return <a onClick={(e) => switchToComplete(e)} key={index} value={todo} > <Todo name={todo} />  </a> })}
             <h4>Completed</h4>
             {completed.map((todo, index) => { return <Todo name={todo} complete={true} key={index} /> })}
         </>
