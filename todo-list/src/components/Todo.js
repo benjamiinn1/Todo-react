@@ -1,5 +1,18 @@
-const Todo = () => {
-    return <div>This is a todo</div>;
+const Todo = ({ name, complete}) => {
+
+    const completeStyle={
+        color: 'green'
+    }
+
+    const notCompleteStyle={
+        color: 'red'
+    }
+
+    return (
+    <div>
+        <h5 style={complete === true? completeStyle : notCompleteStyle}>{name}</h5>
+    </div>
+    );
   };
   
   export default Todo;
