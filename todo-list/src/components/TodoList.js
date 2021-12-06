@@ -1,5 +1,6 @@
 import Todo from "./Todo";
 import { useState } from "react";
+import './style/todoListStyles.css'
 
 const TodoList = () => {
     const [newTodo, setNewTodo] = useState("")
@@ -16,23 +17,34 @@ const TodoList = () => {
         setNewTodo(e.target.value)
     }
     const switchToComplete = (e) => {
-        console.log(e.target.innerHTML)
-        setTodos(todos.filter(nonCompleted => nonCompleted != e.target.innerHTML))
+        setTodos(todos.filter(nonCompleted => nonCompleted !== e.target.innerHTML))
         setCompleted([...completed, e.target.innerHTML])
     }
 
+    const deleteComplete = (e) => {
+        setCompleted(completed.filter(complete => complete !== e.target.innerHTML))
+    }
+
     return (
-        <>
+        <div id='component-todo-list'>
+            <div id='not-completed-div'>
             <form onSubmit={submitHandler}>
-                <input type="text" name="newTodo" value={newTodo} onChange={(e) => changeHandler(e)} placeholder='New Todo'></input>
-                <input type='submit'></input>
+                <label for={newTodo}>I need to...</label>
+                <input type="text" name="newTodo" value={newTodo} onChange={(e) => changeHandler(e)} placeholder='New Todo' id='text--input'></input>
+                <input type='submit' id='sub-button'></input>
+                {/* <input type='submit' id='sub-button'></input> */}
             </form>
-            <h3>This is a Todo List</h3>
-            <h4>Todo</h4>
-            {todos.map((todo, index) => { return <a onClick={(e) => switchToComplete(e)} key={index} value={todo} > <Todo name={todo} />  </a> })}
+            <div className='todo-list'>
+            {todos.map((todo, index) => { return <span key={index} className='todo-item'><span onClick={(e) => switchToComplete(e)} value={todo} > <Todo name={todo} /><br /> </span> </span> })}
+            </div>
+            </div>
+            <div id='completed-div'>
             <h4>Completed</h4>
-            {completed.map((todo, index) => { return <Todo name={todo} complete={true} key={index} /> })}
-        </>
+            <div className='todo-list'>
+            {completed.map((todo, index) => { return <span key={index} className='todo-item'> <span onClick={(e) => deleteComplete(e)}> <Todo name={todo} complete={true} />  </span> <br /> </span>})}
+            </div>
+            </div>
+        </div>
     );
 };
 

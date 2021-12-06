@@ -1,17 +1,19 @@
 const Todo = ({ name, complete }) => {
 
     const completeStyle = {
-        color: 'green'
+        color: '#118AB2',
+        fontSize: '1.5rem'
     }
 
     const notCompleteStyle = {
-        color: 'red'
+        color: '#FFD166',
+        fontSize: '1.5rem'
     }
 
     return (
-        <div>
-            <h5 style={complete === true ? completeStyle : notCompleteStyle}>{name}</h5>
-        </div>
+        <>
+            <span style={complete === true ? completeStyle : notCompleteStyle}>{name}</span>
+        </>
     );
 };
 
